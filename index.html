@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="data.js"></script>
+    <script src="Fruit.js"></script>
+    <script src="Shop.js"></script>
+    <script src="Order.js"></script>
+</head>
+<style>
+    img {
+        width: 80px;
+    }
+
+    table {
+        width: 50%;
+        float: left;
+    }
+
+    td {
+        text-align: center;
+        font-size: 25px;
+    }
+
+</style>
+<body>
+<h1 style="color: blue">Fresh and Clean Fruit.</h1>
+<form id="form-add">
+    <fieldset>
+        <legend>Add Fruit</legend>
+        <input type="text" id="name" placeholder="Tên hoa quả.">
+        <input type="text" id="image" placeholder="Ảnh hoa quả.">
+        <input type="text" id="mass" placeholder="Khối lượng">
+        <input type="text" id="price" placeholder="Giá hoa quả.">
+        <button type="button" onclick="addNewFruit()">Add</button>
+    </fieldset>
+</form>
+<form id="form-update" style="display: none">
+    <fieldset>
+        <legend>Update Fruit</legend>
+        <input type="text" id="name-update" placeholder="Tên hoa quả.">
+        <input type="text" id="image-update" placeholder="Ảnh hoa quả.">
+        <input type="text" id="mass-update" placeholder="Khối lượng">
+        <input type="text" id="price-update" placeholder="Giá hoa quả.">
+        <button type="button" onclick="updateFruit()">Update</button>
+    </fieldset>
+</form>
+
+<button onclick="payOrder()" style="background-color: red; font-size: 25px">Thanh toán</button>
+<table border="1px" id="menu"></table>
+<table border="1px" id="order"></table>
+<strong style="font-size: 20px; color: blue">Tổng thu:</strong><span id="revenue" style="color: red; font-size: 20px">0</span>&nbspVNĐ.
+
+<script>
+    // let fruit1 = new Fruit('Chuối', 'anhhoaqua3/chuoi.jpg', '1 quả', 2000);
+    // let fruit2 = new Fruit('Nhãn', 'anhhoaqua3/nhan.jpg', '1 kg', 40000);
+    // let fruit3 = new Fruit('Vải thiều', 'anhhoaqua3/vai.jpg', '1 quả', 35000);
+    // let fruit4 = new Fruit('Dưa hấu', 'anhhoaqua3/duahau.jpg', '1 quả', 20000);
+
+    let shop = new Shop('');
+    shop.fruits = loadData(SHOP);
+    // shop.addFruit(fruit1);
+    // shop.addFruit(fruit2);
+    // shop.addFruit(fruit3);
+    // shop.addFruit(fruit4);
+    let order = new Order('');
+    let current = -1;
+
+    function display() {
+        saveData(shop.fruits, SHOP);
+        document.getElementById('menu').innerHTML = shop.showAllFruit();
+        document.getElementById('order').innerHTML = order.showOrderedFruit();
+        document.getElementById('revenue').innerHTML = loadMoney(MONEY);
+    }
+
+    display();
+
+    function deleteFruit(index) {
+        shop.deleteFruit(index);
+        display();
+    }
+
+    function deleteOrderedFruit(index) {
+        order.deleteFruit(index);
+        display();
+    }
+
+    function selectFruit(index) {
+        let fruit = shop.fruits[index];
+        console.log(index);
+        order.addFruit(fruit);
+
+        display();
+    }
+
+    function addNewFruit() {
+        let name = document.getElementById('name').value;
+        let image = document.getElementById('image').value;
+        let mass = document.getElementById('mass').value;
+        let price = document.getElementById('price').value;
+        let fruit = new Fruit(name, image, mass, price)
+        shop.addFruit(fruit);
+        display();
+        clearForm();
+    }
+
+    function clearForm() {
+        document.getElementById("myForm").reset();
+    }
+
+    //
+    function payOrder() {
+        order.payOrder();
+        display();
+    }
+
+    function editFruit(index) {
+        document.getElementById('form-update').style.display = 'block';
+        document.getElementById('name-update').value = shop.fruits[index].name;
+        document.getElementById('image-update').value = shop.fruits[index].image;
+        document.getElementById('mass-update').value = shop.fruits[index].mass;
+        document.getElementById('price-update').value = shop.fruits[index].price;
+        current = index;
+    }
+
+    function updateFruit() {
+        shop.fruits[current].name = document.getElementById('name-update').value;
+        shop.fruits[current].image = document.getElementById('image-update').value;
+        shop.fruits[current].mass = document.getElementById('mass-update').value;
+        shop.fruits[current].price = document.getElementById('price-update').value;
+        display();
+        alert('Cap nhat du lieu thanh cong.');
+        document.getElementById('form-update').style.display = 'none';
+    }
+
+</script>
+</body>
+</html>
