@@ -53,17 +53,17 @@
 <strong style="font-size: 20px; color: blue">Tổng thu:</strong><span id="revenue" style="color: red; font-size: 20px">0</span>&nbspVNĐ.
 
 <script>
-    // let fruit1 = new Fruit('Chuối', 'anhhoaqua3/chuoi.jpg', '1 quả', 2000);
-    // let fruit2 = new Fruit('Nhãn', 'anhhoaqua3/nhan.jpg', '1 kg', 40000);
-    // let fruit3 = new Fruit('Vải thiều', 'anhhoaqua3/vai.jpg', '1 quả', 35000);
-    // let fruit4 = new Fruit('Dưa hấu', 'anhhoaqua3/duahau.jpg', '1 quả', 20000);
+    let fruit1 = new Fruit('Chuối', 'anhhoaqua3/chuoi.jpg', '1 quả', 2000);
+    let fruit2 = new Fruit('Nhãn', 'anhhoaqua3/nhan.jpg', '1 kg', 40000);
+    let fruit3 = new Fruit('Vải thiều', 'anhhoaqua3/vai.jpg', '1 quả', 35000);
+    let fruit4 = new Fruit('Dưa hấu', 'anhhoaqua3/duahau.jpg', '1 quả', 20000);
 
     let shop = new Shop('');
     shop.fruits = loadData(SHOP);
-    // shop.addFruit(fruit1);
-    // shop.addFruit(fruit2);
-    // shop.addFruit(fruit3);
-    // shop.addFruit(fruit4);
+    shop.addFruit(fruit1);
+    shop.addFruit(fruit2);
+    shop.addFruit(fruit3);
+    shop.addFruit(fruit4);
     let order = new Order('');
     let current = -1;
 
